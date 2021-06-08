@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RadioButton rbnan,rbnv;
     private CheckBox cblan,cbzu,cbyou;
     private Button btngetgender,btngetfun;
+
+    private String strfun="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ibtn.setOnClickListener(this);
         btngetgender.setOnClickListener(this);
         btngetfun.setOnClickListener(this);
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId)
+                {
+                    case R.id.radioButton:
+                        tv.setText("男");
+                        break;
+                    case R.id.radioButton2:
+                        tv.setText("女");
+                        break;
+                }
+            }
+        });
+        cblan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    strfun+="篮球+";
+                    else
+                    strfun=strfun.replace("篮球+","");
+                tv.setText(strfun);
+            }
+        });
+        cbzu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    strfun+="足球+";
+                else
+                    strfun=strfun.replace("足球+","");
+                tv.setText(strfun);
+            }
+        });
+        cbyou.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    strfun+="游泳+";
+                else
+                    strfun=strfun.replace("游泳+","");
+                tv.setText(strfun);
+            }
+        });
     }
 
     @Override
@@ -79,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String msg="";
                 if (cblan.isChecked()) msg+="篮球";
                 if (cbzu.isChecked()) msg+="足球";
-                if (cbyou.isChecked()) msg+="排球";
+                if (cbyou.isChecked()) msg+="游泳";
                 tv.setText(msg);
                 break;
         }
